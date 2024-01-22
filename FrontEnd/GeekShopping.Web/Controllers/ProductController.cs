@@ -37,5 +37,26 @@ namespace GeekShopping.Web.Controllers
             return View(product);
             
         }
+      
+        public async Task<IActionResult> ProductUpdate(long id)
+        {
+            var product = await _productService.FindProductById(id);
+            if(product != null) { return View(product); }
+            return NotFound();
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductUpdate([FromBody] ProductModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await _productService.UpdateProduct(product);
+                if (res != null) return RedirectToAction(nameof(ProductIndex));
+            }
+
+            return View(product);
+
+        }
     }
 }
