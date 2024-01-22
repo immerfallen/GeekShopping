@@ -19,5 +19,23 @@ namespace GeekShopping.Web.Controllers
             IEnumerable<ProductModel> products = await _productService.FindAllProducts();
             return View(products);
         }
+
+        public  ActionResult ProductCreate()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductCreate([FromBody]ProductModel product)
+        {
+            if (ModelState.IsValid) 
+            {
+                var res = await _productService.CreateProduct(product);
+                if (res != null) return RedirectToAction(nameof(ProductIndex));
+            }
+
+            return View(product);
+            
+        }
     }
 }
