@@ -9,7 +9,7 @@ namespace GeekShopping.CartAPI.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column("id")]
-        public long id { get; set; }
+        public long Id { get; set; }
         [Column("name")]
         [Required]
         [StringLength(150)]
