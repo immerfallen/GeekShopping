@@ -3,9 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GeekShopping.IdentityServer.Model.Context
 {
-    public class SQLServerContext : IdentityDbContext<ApplicationUser>
-    {       
-        public SQLServerContext(DbContextOptions<SQLServerContext> options) 
-            : base(options) { }       
+    public class SqlServerContext : IdentityDbContext<ApplicationUser>
+    {
+        public SqlServerContext()
+        {
+
+        }
+        public SqlServerContext(DbContextOptions<SqlServerContext> options)
+            : base(options) { }
     }
 }
