@@ -19,8 +19,7 @@ namespace GeekShopping.ProductAPI.Controllers
                 ArgumentNullException(nameof(productRepository));
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet]        
         public async Task<ActionResult<List<ProductVO>>> FindAll()
         {
             var products = await _productRepository.FindAll();
