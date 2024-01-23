@@ -66,6 +66,30 @@ namespace GeekShopping.CartAPI.Repository
                 _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                var cartDetail = await _context.CartDetails.AsNoTracking().FirstOrDefaultAsync(
+                    p => p.ProductId == vo.CartDetailsVO.FirstOrDefault().ProductId &&
+                    p.CartHeaderId == cart.CartHeader.Id
+                    );
+                if (cartDetail == null)
+                {
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.Id;
+                    cart.CartDetails.FirstOrDefault().Product = null;
+                    _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    cart.CartDetails.FirstOrDefault().Product = null;
+                    cart.CartDetails.FirstOrDefault().Count += cartDetail.Count;
+                    cart.CartDetails.FirstOrDefault().Id = cartDetail.Id;
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartDetail.CartHeaderId;
+                    _context.CartDetails.Update(cart.CartDetails.FirstOrDefault());
+                    await _context.SaveChangesAsync();
+                }
+            }
+            return _mapper.Map<CartVO>(cart);
         }
     }
 }
