@@ -7,10 +7,10 @@ namespace GeekShopping.CartAPI.Model
     public class CartDetail : BaseEntity
     {
         [ForeignKey("CartHeaderId")]
-        public CartHeader CartHeader { get; set; }
+        public virtual CartHeader CartHeader { get; set; }
         public long CartHeaderId { get; set; }       
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }       
+        public virtual Product Product { get; set; }       
         public long ProductId { get; set; }
         [Column("count")]
         public int Count { get; set; }
