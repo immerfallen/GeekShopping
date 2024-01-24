@@ -21,7 +21,7 @@ namespace GeekShopping.Web.Controllers
         public async Task<IActionResult> ProductIndex()
         {
             
-            IEnumerable<ProductModel> products = await _productService.FindAllProducts("");
+            IEnumerable<ProductViewModel> products = await _productService.FindAllProducts("");
             return View(products);
         }
        
@@ -32,7 +32,7 @@ namespace GeekShopping.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ProductCreate([FromBody]ProductModel product)
+        public async Task<IActionResult> ProductCreate([FromBody] ProductViewModel product)
         {
             if (ModelState.IsValid) 
             {
@@ -55,7 +55,7 @@ namespace GeekShopping.Web.Controllers
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ProductUpdate([FromBody] ProductModel product)
+        public async Task<IActionResult> ProductUpdate([FromBody] ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace GeekShopping.Web.Controllers
         }
 
         [Authorize(Roles = Role.Admin)]
-        public async Task<IActionResult> ProductDelete(ProductModel product)
+        public async Task<IActionResult> ProductDelete(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
