@@ -1,5 +1,5 @@
 ﻿using GeekShopping.CartAPI.Data.ValueObjects;
-using GeekShopping.CartAPI.Model;
+using GeekShopping.CartAPI.Messages;
 using GeekShopping.CartAPI.Repository;
 using GeekShopping.CartAPI.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -24,10 +24,10 @@ namespace GeekShopping.CartAPI.Controllers
                 ArgumentNullException(nameof(repository));
         }
 
-        [HttpGet("find-cart/{userId}")]
-        public async Task<ActionResult<CartVO>> FindById(string userId)
+        [HttpGet("find-cart/{id}")]
+        public async Task<ActionResult<CartVO>> FindById(string id)
         {
-            var cart = await _repository.FindCartByUserId(userId);
+            var cart = await _repository.FindCartByUserId(id);
             if (cart == null) return NotFound();
             return Ok(cart);
         }
@@ -54,6 +54,36 @@ namespace GeekShopping.CartAPI.Controllers
             var status = await _repository.RemoveFromCart(id);
             if (!status) return BadRequest();
             return Ok(status);
+        }
+
+        [HttpPost("apply-coupon")]
+        public async Task<ActionResult<CartVO>> ApplyCoupon(CartVO vo)
+        {
+            var status = await _repository.ApplyCoupon(vo.CartHeader.UserId, vo.CartHeader.CouponCode);
+            if (!status) return NotFound();
+            return Ok(status);
+        }
+
+        [HttpDelete("remove-coupon/{userId}")]
+        public async Task<ActionResult<CartVO>> ApplyCoupon(string userId)
+        {
+            var status = await _repository.RemoveCoupon(userId);
+            if (!status) return NotFound();
+            return Ok(status);
+        }
+
+        [HttpPost("checkout")]
+        public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
+        {
+            if (vo?.UserId == null) return BadRequest();
+            var cart = await _repository.FindCartByUserId(vo.UserId);
+            if (cart == null) return NotFound();
+            vo.CartDetails = cart.CartDetails;
+            vo.DateTime = DateTime.Now;
+
+            //TASK RabbitMQ logic comes here!!!
+
+            return Ok(vo);
         }
     }
 }

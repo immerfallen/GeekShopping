@@ -93,7 +93,7 @@ namespace GeekShopping.CartAPI.Repository
             
             //Checks if the product is already saved in the database if it does not exist then save
             var product = await _context.Products.FirstOrDefaultAsync(
-                p => p.Id == vo.CartDetailsVO.FirstOrDefault().ProductId);
+                p => p.Id == vo.CartDetails.FirstOrDefault().ProductId);
 
             if (product == null)
             {
