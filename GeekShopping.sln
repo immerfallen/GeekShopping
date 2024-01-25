@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekShopping.Web", "FrontEn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{DF7C56EE-8EC1-43B0-8023-FD3D568AEF7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekShopping.MessageBus", "GeekShopping.MessageBus\GeekShopping.MessageBus.csproj", "{1DE192AF-5120-4231-8955-E25D0F37F072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekShopping.MessageBus", "GeekShopping.MessageBus\GeekShopping.MessageBus.csproj", "{1DE192AF-5120-4231-8955-E25D0F37F072}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekShopping.OrderAPI", "GeekShopping.OrderAPI\GeekShopping.OrderAPI.csproj", "{5E72C0E0-1F2F-4191-9B3E-35D785E4086C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{1DE192AF-5120-4231-8955-E25D0F37F072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE192AF-5120-4231-8955-E25D0F37F072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE192AF-5120-4231-8955-E25D0F37F072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E72C0E0-1F2F-4191-9B3E-35D785E4086C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E72C0E0-1F2F-4191-9B3E-35D785E4086C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E72C0E0-1F2F-4191-9B3E-35D785E4086C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E72C0E0-1F2F-4191-9B3E-35D785E4086C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{DAE83C00-5CB0-4677-8542-7A631E52B29D} = {3E74B03A-E340-4425-B67D-7031C7913081}
 		{50D28197-7106-4054-B8D9-2701D381F3B5} = {E77AFFDB-3CBE-4C2E-815C-4E9468B2CCA6}
 		{1DE192AF-5120-4231-8955-E25D0F37F072} = {DF7C56EE-8EC1-43B0-8023-FD3D568AEF7F}
+		{5E72C0E0-1F2F-4191-9B3E-35D785E4086C} = {3E74B03A-E340-4425-B67D-7031C7913081}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {230478D0-4804-4521-8D69-8DB4DD03425A}
