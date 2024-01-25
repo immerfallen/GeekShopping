@@ -23,7 +23,30 @@ namespace GeekShopping.CartAPI.Repository
 
         public async Task<bool> ApplyCoupon(string userId, string couponCode)
         {
-            throw new NotImplementedException();
+            var header = await _context.CartHeaders
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (header != null)
+            {
+                header.CouponCode = couponCode;
+                _context.CartHeaders.Update(header);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> RemoveCoupon(string userId)
+        {
+            var header = await _context.CartHeaders
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (header != null)
+            {
+                header.CouponCode = "";
+                _context.CartHeaders.Update(header);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> ClearCart(string userId)
@@ -49,15 +72,11 @@ namespace GeekShopping.CartAPI.Repository
                 CartHeader = await _context.CartHeaders
                     .FirstOrDefaultAsync(c => c.UserId == userId),
             };
-            cart.CartDetails = _context.CartDetails
+            cart.CartDetails =  _context.CartDetails
                 .Where(c => c.CartHeaderId == cart.CartHeader.Id)
-                    .Include(c => c.Product);
-            return _mapper.Map<CartVO>(cart);
-        }
-
-        public async Task<bool> RemoveCoupon(string userId)
-        {
-            throw new NotImplementedException();
+                    .Include(c => c.Product).ToList();
+            var retorno = _mapper.Map<CartVO>(cart);
+            return retorno;
         }
 
         public async Task<bool> RemoveFromCart(long cartDetailsId)
@@ -90,7 +109,6 @@ namespace GeekShopping.CartAPI.Repository
         public async Task<CartVO> SaveOrUpdateCart(CartVO vo)
         {
             Cart cart = _mapper.Map<Cart>(vo);
-            
             //Checks if the product is already saved in the database if it does not exist then save
             var product = await _context.Products.FirstOrDefaultAsync(
                 p => p.Id == vo.CartDetails.FirstOrDefault().ProductId);
@@ -109,6 +127,11 @@ namespace GeekShopping.CartAPI.Repository
             if (cartHeader == null)
             {
                 //Create CartHeader and CartDetails
+                if(cart.CartHeader.CouponCode == null)
+                {
+                    cart.CartHeader.CouponCode = "";
+                }
+
                 _context.CartHeaders.Add(cart.CartHeader);
                 await _context.SaveChangesAsync();
                 cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.Id;

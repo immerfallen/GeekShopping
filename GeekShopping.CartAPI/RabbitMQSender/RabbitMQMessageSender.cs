@@ -36,8 +36,7 @@ namespace GeekShopping.CartAPI.RabbitMQSender
 
             byte[] body = GetMessageAsByteArray(baseMessage);
 
-            channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
-            
+            channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);            
         }
 
         private byte[] GetMessageAsByteArray(BaseMessage baseMessage)
