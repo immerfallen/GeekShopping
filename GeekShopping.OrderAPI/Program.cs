@@ -1,3 +1,5 @@
+using GeekShopping.OrderAPI.Model.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,8 +28,8 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-//var connection = builder.Configuration["SqlConnection:SqlConnectionString"];
-//builder.Services.AddDbContext<SQLServerContext>(options => options.UseSqlServer(connection));
+var connection = builder.Configuration["SqlConnection:SqlConnectionString"];
+builder.Services.AddDbContext<SQLServerContext>(options => options.UseSqlServer(connection));
 
 //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 //builder.Services.AddSingleton(mapper);
