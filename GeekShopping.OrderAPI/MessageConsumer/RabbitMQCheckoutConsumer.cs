@@ -10,13 +10,13 @@ using System.Text.Json;
 
 namespace GeekShopping.OrderAPI.MessageConsumer
 {
-    public class RabbitMQMessageConsumer : BackgroundService
+    public class RabbitMQCheckoutConsumer : BackgroundService
     {
         private readonly OrderRepository _orderRepository;
         private IConnection _connection;
         private IModel _channel;
 
-        public RabbitMQMessageConsumer(OrderRepository orderRepository)
+        public RabbitMQCheckoutConsumer(OrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
             var factory = new ConnectionFactory
