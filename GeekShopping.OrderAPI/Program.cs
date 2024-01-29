@@ -1,4 +1,5 @@
 using GeekShopping.OrderAPI.Model.Context;
+using GeekShopping.OrderAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -36,6 +37,11 @@ builder.Services.AddDbContext<SQLServerContext>(options => options.UseSqlServer(
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+var builderRepository = new DbContextOptionsBuilder<SQLServerContext>();
+builderRepository.UseSqlServer(connection);
+
+builder.Services.AddSingleton(new OrderRepository(builderRepository.Options));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
