@@ -1,16 +1,7 @@
-﻿using AutoMapper;
-using GeekShopping.CartAPI.Data.ValueObjects;
-using GeekShopping.CartAPI.Model.Context;
+﻿using GeekShopping.CartAPI.Data.ValueObjects;
 using GeekShopping.CartAPI.Repository.Interfaces;
-using GeekShopping.CouponAPI.Data.ValueObjects;
-using GeekShopping.CouponAPI.Model.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace GeekShopping.CartAPI.Repository
